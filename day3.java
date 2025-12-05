@@ -14,27 +14,30 @@ public class day3{
         numbers.add(line);
       }
       long total = 0;
+
       for (String num : numbers){
+        int startidx = 0;
 
-        int firstLargest = -1;
-        int firstIdx = 0;
-        for(int i = 0; i < num.length() - 1; i++){
-          if( Integer.parseInt( num.substring(i, i+ 1)) > firstLargest){
-            firstLargest = Integer.parseInt( num.substring(i, i+ 1));
-            firstIdx = i;
+        String finalthing = "";
+        for(int digitNum = 12; digitNum > 0; digitNum--){
+          int firstLargest = -1;
+          System.out.println("reset starting from" + startidx);
+          for(int i = startidx; i < num.length() - digitNum + 1; i++){
+
+            if( Integer.parseInt( num.substring(i, i+ 1)) > firstLargest){
+              firstLargest = Integer.parseInt( num.substring(i, i+ 1));
+              startidx = i + 1;
+
+            }
           }
-        }
-        int secondLargest = -1;
-        for(int i = firstIdx + 1; i < num.length(); i++){
-          if( Integer.parseInt( num.substring(i, i+ 1)) > secondLargest){
-            secondLargest = Integer.parseInt( num.substring(i, i+ 1));
-          }
-        }
+        finalthing += firstLargest;
+        total += (long) ( Math.pow(10, digitNum - 1) * firstLargest);
 
-        System.out.println(firstLargest);
-        System.out.println(secondLargest);
+        }
+        
+        System.out.println(finalthing);
 
-        total += (long) ( 10 * firstLargest + secondLargest);
+
       }
       System.out.println(total);
     }
